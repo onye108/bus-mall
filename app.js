@@ -62,6 +62,7 @@ for(var i = 0; i < names.length; i++) {
 }
 
 
+
 new Product('img/bag.jpg','R2D2 Travel Bag');
 new Product('img/banana.jpg','banana');
 new Product('img/bathroom.jpg' ,'Ipad');
@@ -81,6 +82,8 @@ new Product('img/unicorn.jpg','Magic Meat');
 new Product('img/usb.jpg','USB');
 new Product('img/water-can.jpg' ,'Watering Pot');
 new Product('img/wine-glass.jpg','Wine Glass');
+=======
+
 
 randomizer();
 
@@ -127,6 +130,7 @@ function handleClick(event) {
     productCatalog[newArray[0]].clicks += 1;
     console.log(productCatalog[newArray[0]]);
   }
+
   if(event.target.id === 'middle'){
     productCatalog[newArray[1]].clicks += 1;
     console.log(productCatalog[newArray[1]]);
