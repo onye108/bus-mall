@@ -14,9 +14,9 @@ var holder = document.getElementsByClassName('container')[0];
 console.log(productCatalog);
 //****************Construtor*******************
 
-function Product (filepath, nickname){
+function Product (name){
 
-  this.nickname = nickname;
+  this.name = name;
   this.filepath = 'img/' + name + '.jpg';
   this.timesListed = 0;
   this.timesClicked = 0;
@@ -41,13 +41,13 @@ function randomizer(){
 
 
   if(lefty === center || lefty === righty){
-    lefty.randomizer();
+    left.randomizer();
   }
   if(righty === center || righty === lefty){
-    righty.randomizer();
+    right.randomizer();
   }
   if(center === lefty || center === righty){
-    center.randomizer();
+    middle.randomizer();
   }
 }
 
@@ -60,6 +60,30 @@ function randomizer(){
 for(var i = 0; i < names.length; i++) {
   new Product(names[i]);
 }
+
+
+
+new Product('img/bag.jpg','R2D2 Travel Bag');
+new Product('img/banana.jpg','banana');
+new Product('img/bathroom.jpg' ,'Ipad');
+new Product('img/boots.jpg' ,'boots');
+new Product('img/bubblegum.jpg' ,'gum');
+new Product('img/chair.jpg','Red Chair');
+new Product('img/cthulhu.jpg','Alien');
+new Product('img/dog-duck.jpg','Duck bill');
+new Product('img/dragon.jpg','Dragon Meat');
+new Product('img/pen.jpg','Pen Cutlary');
+new Product('img/pet-sweep.jpg','Sweeper');
+new Product('img/scissors','Pizza Cutter');
+new Product('img/shark.jpg','Sleeping Bag');
+new Product('img/sweep.jpg','Baby Onecy');
+new Product('img/tauntaun.jpg','Star Wars');
+new Product('img/unicorn.jpg','Magic Meat');
+new Product('img/usb.jpg','USB');
+new Product('img/water-can.jpg' ,'Watering Pot');
+new Product('img/wine-glass.jpg','Wine Glass');
+=======
+
 
 randomizer();
 
@@ -106,7 +130,8 @@ function handleClick(event) {
     productCatalog[newArray[0]].clicks += 1;
     console.log(productCatalog[newArray[0]]);
   }
-  if(event.target.id === 'center'){
+
+  if(event.target.id === 'middle'){
     productCatalog[newArray[1]].clicks += 1;
     console.log(productCatalog[newArray[1]]);
   }

@@ -6,6 +6,11 @@
 
 
 }
+ul li{
+  display: inline-flex;
+  padding: 10 25 10 25;
+  text-align: center;
+}
 
 .container {
   background-color: black;
