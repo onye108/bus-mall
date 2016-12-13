@@ -1,4 +1,5 @@
 'use strict';
+
 var clickCounter = 0;
 var productCatalog = [];
 var left = document.getElementsByClassName('left')[0];
@@ -22,7 +23,7 @@ function Product (filepath, nickname){
 
 
 
-function random3Items(){
+function randomizer(){
 
   var lefty = productCatalog[Math.floor(Math.random() * 20)];
   var center = productCatalog[Math.floor(Math.random() * 20)];
@@ -69,4 +70,4 @@ new Product('img/usb.jpg ','USB');
 new Product('img/water-can.jpg ','Watering Pot');
 new Product('img/wine-glass.jpg','Wine Glass');
 
-random3Items();
+randomizer();
