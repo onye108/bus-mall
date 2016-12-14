@@ -153,20 +153,23 @@ holder.addEventListener('click', handleClick);
 
 
    var data = {
-     labels: [names],
+     labels: ['bag','banana','bathroom','boots','bubblegum','chair','cthulhu','dog-duck', 'dragon','pen','pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'],
      datasets: [
          {
              label: 'My First dataset',
-             backgroundColor: 'rgba(255, 99, 132, 0.2)',
+             backgroundColor: 'rgba(30, 199, 132, 0.2)',
              borderColor: 'rgba(153, 102, 255, 1)',
              borderWidth: 1,
-             data: [65, 59, 80, 81, 56, 55, 40],
-
+             data: [1, 2, 8, 3, 6, 9, 5, 7, 11, 4, 9, 4, 0, 4, 2, 8, 4, 7, 3],
+            //  yAxisID: '# of Clicks',
+            //  xAxisID: 'Product',
 
 
          }
      ]
  };
- var myBarChart = Chart.Bar(canvas, {
-   data: data,
- });
+ var myBarChart = new Chart(canvas, {
+    type: 'bar',
+    data: data,
+
+});
