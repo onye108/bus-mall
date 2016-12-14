@@ -9,7 +9,7 @@ var oldArray = [];
 var left = document.getElementsByClassName('left')[0];
 var middle = document.getElementsByClassName('middle')[0];
 var right  = document.getElementsByClassName('right')[0];
-var holder = document.getElementsByClassName('container')[0];
+var holder = document.getElementsByClassName('pic-container')[0];
 
 console.log(productCatalog);
 //****************Construtor*******************
@@ -27,29 +27,29 @@ function Product (name){
 
 
 
-function randomizer(){
-
-  var lefty = productCatalog[Math.floor(Math.random() * 20)];
-  var center = productCatalog[Math.floor(Math.random() * 20)];
-  var righty = productCatalog[Math.floor(Math.random() * 20)];
-
-
-  left.src = lefty.filepath;
-  middle.src = center.filepath;
-  right.src = righty.filepath;
-
-
-
-  if(lefty === center || lefty === righty){
-    left.randomizer();
-  }
-  if(righty === center || righty === lefty){
-    right.randomizer();
-  }
-  if(center === lefty || center === righty){
-    middle.randomizer();
-  }
-}
+// function randomizer(){
+//
+//   var lefty = productCatalog[Math.floor(Math.random() * 20)];
+//   var center = productCatalog[Math.floor(Math.random() * 20)];
+//   var righty = productCatalog[Math.floor(Math.random() * 20)];
+//
+//
+//   left.src = lefty.filepath;
+//   middle.src = center.filepath;
+//   right.src = righty.filepath;
+//
+//
+//
+//   if(lefty === center || lefty === righty){
+//     left.randomizer();
+//   }
+//   if(righty === center || righty === lefty){
+//     right.randomizer();
+//   }
+//   if(center === lefty || center === righty){
+//     middle.randomizer();
+//   }
+// }
 
 
 
@@ -61,31 +61,31 @@ for(var i = 0; i < names.length; i++) {
   new Product(names[i]);
 }
 
-
-
-new Product('img/bag.jpg','R2D2 Travel Bag');
-new Product('img/banana.jpg','banana');
-new Product('img/bathroom.jpg' ,'Ipad');
-new Product('img/boots.jpg' ,'boots');
-new Product('img/bubblegum.jpg' ,'gum');
-new Product('img/chair.jpg','Red Chair');
-new Product('img/cthulhu.jpg','Alien');
-new Product('img/dog-duck.jpg','Duck bill');
-new Product('img/dragon.jpg','Dragon Meat');
-new Product('img/pen.jpg','Pen Cutlary');
-new Product('img/pet-sweep.jpg','Sweeper');
-new Product('img/scissors','Pizza Cutter');
-new Product('img/shark.jpg','Sleeping Bag');
-new Product('img/sweep.jpg','Baby Onecy');
-new Product('img/tauntaun.jpg','Star Wars');
-new Product('img/unicorn.jpg','Magic Meat');
-new Product('img/usb.jpg','USB');
-new Product('img/water-can.jpg' ,'Watering Pot');
-new Product('img/wine-glass.jpg','Wine Glass');
-=======
-
-
-randomizer();
+//
+//
+// new Product('img/bag.jpg','R2D2 Travel Bag');
+// new Product('img/banana.jpg','banana');
+// new Product('img/bathroom.jpg' ,'Ipad');
+// new Product('img/boots.jpg' ,'boots');
+// new Product('img/bubblegum.jpg' ,'gum');
+// new Product('img/chair.jpg','Red Chair');
+// new Product('img/cthulhu.jpg','Alien');
+// new Product('img/dog-duck.jpg','Duck bill');
+// new Product('img/dragon.jpg','Dragon Meat');
+// new Product('img/pen.jpg','Pen Cutlary');
+// new Product('img/pet-sweep.jpg','Sweeper');
+// new Product('img/scissors','Pizza Cutter');
+// new Product('img/shark.jpg','Sleeping Bag');
+// new Product('img/sweep.jpg','Baby Onecy');
+// new Product('img/tauntaun.jpg','Star Wars');
+// new Product('img/unicorn.jpg','Magic Meat');
+// new Product('img/usb.jpg','USB');
+// new Product('img/water-can.jpg' ,'Watering Pot');
+// new Product('img/wine-glass.jpg','Wine Glass');
+//
+//
+//
+// randomizer();
 
 function rand(){
   return Math.floor(Math.random() * names.length);
@@ -123,8 +123,8 @@ function showThreePics(){
 function handleClick(event) {
   event.preventDefault();
   console.log(event.target, 'was clicked');
-  if( event.target.id === 'container'){
-    return alert('Click a picture please!');
+  if( event.target.class === 'pic-container'){
+    alert('Click a picture please!');
   }
   if(event.target.id === 'left'){
     productCatalog[newArray[0]].clicks += 1;
@@ -147,3 +147,26 @@ function handleClick(event) {
 }
 showThreePics();
 holder.addEventListener('click', handleClick);
+
+
+  var canvas = document.getElementById('myChart').getContext('2d');
+
+
+   var data = {
+     labels: [names],
+     datasets: [
+         {
+             label: 'My First dataset',
+             backgroundColor: 'rgba(255, 99, 132, 0.2)',
+             borderColor: 'rgba(153, 102, 255, 1)',
+             borderWidth: 1,
+             data: [65, 59, 80, 81, 56, 55, 40],
+
+
+
+         }
+     ]
+ };
+ var myBarChart = Chart.Bar(canvas, {
+   data: data,
+ });
