@@ -107,14 +107,6 @@ function clickCount() {
   }
 
 }
-
-
-
-
-
-
-
-
 showThreePics();
 holder.addEventListener('click', handleClick);
 
@@ -125,32 +117,27 @@ function makeNewChart (){
   for (var i = 0; i < productCatalog.length; i++) {
     itemName[i] = productCatalog[i].name;
     clicked[i] = productCatalog[i].timesClicked;
-
   }
   console.log(itemName + ' ' + clicked);
-
 }
 
-
-    var data = {
-      labels: itemName,
-      datasets: [
-        {
-          data: clicked,
-          label: 'Number of Clicks',
-          backgroundColor: '#D692E1',
-          borderColor: '#DAFA6F',
-
+var data = {
+  labels: itemName,
+  datasets: [
+    {
+      data: clicked,
+      label: 'Number of Clicks',
+      backgroundColor: '#4242EA',
+      borderColor: '#91EA42',
     }
   ]
-    };
-
+};
 function hideChart(myChart){
   document.getElementById('myChart').hidden = true;
 }
 function drawChart(){
   var myChart = new Chart(canvas,{
-    type: 'pie',
+    type: 'bar',
     data: data,
     options: {
       responsive: false

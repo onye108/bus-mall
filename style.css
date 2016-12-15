@@ -22,8 +22,10 @@ button {
   font-size: 1.1em;
 }
 canvas{
-  background-color: #35332A;
+  background-color: #55808A;
   border-style: inset;
+  height: 10%;
+  width: 100%;
 }
 
 article{
