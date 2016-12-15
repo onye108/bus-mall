@@ -10,7 +10,7 @@ var oldArray = [];
 var left = document.getElementById('left');
 var middle = document.getElementById('middle');
 var right  = document.getElementById('right');
-var holder = document.getElementById('pic-container');
+var holder = document.getElementById('holder');
 
 
 //****************Construtor*******************
@@ -36,47 +36,65 @@ function rand(){
   return Math.floor(Math.random() * names.length);
 }
 
-    function makeArrayOfThreeNumbers(){
-    oldArray[0] = newArray[0];
-    oldArray[1] = newArray[1];
-    oldArray[2] = newArray[2];
-    console.log(oldArray[0]);
+function makeArrayOfThreeNumbers(){
+  oldArray[0] = newArray[0];
+  oldArray[1] = newArray[1];
+  oldArray[2] = newArray[2];
 
+
+  newArray[0] = rand();
+  while(newArray[0] === oldArray[0] || newArray[0] === oldArray[1] || newArray[0] === oldArray[2]){
     newArray[0] = rand();
-    while(newArray[0] === oldArray[0] || newArray[0] === oldArray[1] || newArray[0] === oldArray[2]){
-      newArray[0] = rand();
-    }
-    newArray[1] = rand();
-    while (newArray[0] === newArray[1]){
-      newArray[1] = rand();
-    }
-    newArray[2] = rand();
-    while(newArray[2] === newArray[0] || newArray[2] === newArray[1] || newArray[2] === oldArray[0] || newArray[2] === oldArray[1] || newArray[2] === oldArray[2]){
-      newArray[2] = rand();
-    }
   }
+  newArray[1] = rand();
+  while (newArray[0] === newArray[1]){
+    newArray[1] = rand();
+  }
+  newArray[2] = rand();
+  while(newArray[2] === newArray[0] || newArray[2] === newArray[1] || newArray[2] === oldArray[0] || newArray[2] === oldArray[1] || newArray[2] === oldArray[2]){
+    newArray[2] = rand();
+  }
+}
+
 
 
 function showThreePics(){
+
   makeArrayOfThreeNumbers();
-  var leftPicture =
+
   left.src = productCatalog[newArray[0]].filepath;
   productCatalog[newArray[0]].views += 1;
+
   middle.src = productCatalog[newArray[1]].filepath;
   productCatalog[newArray[1]].views += 1;
+
   right.src = productCatalog[newArray[2]].filepath;
   productCatalog[newArray[2]].views += 1;
 }
-// timesClicked working *******************
-function clickCount(event) {
+
+
+function handleClick(){
   event.preventDefault();
-  if( event.target.id === 'pic-container'){
+  clickCount();
+  clickCounter += 1;
+  console.log(clickCounter, 'total click so far');
+  if(clickCounter === 15){
+    holder.removeEventListener('click',showThreePics);
+    alert('You are out of clicks');
+    renderResults();
+
+  }
+  showThreePics();
+}
+
+// timesClicked working *******************
+function clickCount() {
+
+  if(event.target.id === 'holder'){
     alert('Click a picture please!');
   }
   if(event.target.id === 'left'){
     productCatalog[newArray[0]].timesClicked += 1;
-
-
   }
 
   if(event.target.id === 'middle'){
@@ -85,80 +103,107 @@ function clickCount(event) {
   }
   if(event.target.id === 'right'){
     productCatalog[newArray[2]].timesClicked += 1;
+  }
 
-  }
-  clickCounter += 1;
-  console.log(clickCounter, 'total click so far');
-  if(clickCounter > 5){
-    alert('You are out of clicks');
-  }
 }
 
-holder.addEventListener('click', showThreePics);
+// clickCount(event);
 
-var votes = [];
-var items = [];
 
-function addingDataToChart(){
-  for (var i = 0; i < names.length; i++) {
-    votes[i] = productCatalog[i].votes;
-    items[i] = productCatalog[i].items;
-  }
-}
-function productList() {
-  var inventory = document.getElementById('product-list');
-  inventory.innerHTML = '';
-  inventory.hidden = false;
-  inventory.textContent = 'CLICK ON THIS LIST TO HIDE IT';
-  for (var i = 0; i < productCatalog.length; i++){
-    var liEl = document.createElement('li');
-    liEl.textContent = productCatalog[i].title + ', ' + productCatalog[i].votes + ' votes';
-    inventory.appendChild(liEl);
-  };
-};
+//*****************print results to document*********************
+function renderResults(){
 
-function tallyVote(thisItem) {
+
+  var resultsList = document.getElementById('results');
   for (var i = 0; i < productCatalog.length; i++) {
-    if (thisItem === productCatalog[i].identifier) {
-      productCatalog[i].votes++;
-      addingDataToChart();
-    }
+
+    var surveyResults = document.createElement('li');
+    surveyResults.textContent = 'Name: ' + productCatalog[i].name + '  ' + 'Views: ' + productCatalog[i].views + ' ' + 'Clicked: ' + productCatalog[i].timesClicked;
+    resultsList.appendChild(surveyResults);
+
   }
 }
 
-var canvas = document.getElementById('myChart').getContext('2d');
-var myBarChart = new Chart(canvas,{
-    type: 'bar',
-    data: data,
-
-});
-  chartDrawn = true;
 
 
-var data = {
-  labels: ['bag','banana','bathroom','boots','bubblegum','chair','cthulhu','dog-duck', 'dragon','pen','pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'],
-  datasets: [
-    {
 
-      label: 'My First dataset',
-      backgroundColor: '#D692E1',
-      borderColor: '#DAFA6F',
-      borderWidth: 1,
-      data: [votes],
-      //  yAxisID: '# of Clicks',
-      //  xAxisID: 'Product',
+showThreePics();
+holder.addEventListener('click', handleClick);
 
 
-    }
-  ]
-};
 
-document.getElementById('left').addEventListener('click', function(event){
-  if (event.target.id === 'left') {
-    tallyVote(event.target.id);
-  };
 
-  if (chartDrawn) {
-    myBarChart.update();
-  }
-});
+
+
+
+
+//***********Kill event listener******************
+//************************************************
+// console.log(clickCounter);
+// var votes = [];
+// var items = [];
+//
+// function addingDataToChart(){
+//   for (var i = 0; i < names.length; i++) {
+//     votes[i] = productCatalog[i].votes;
+//     items[i] = productCatalog[i].items;
+//   }
+// }
+// function productList() {
+//   var inventory = document.getElementById('product-list');
+//   inventory.innerHTML = '';
+//   inventory.hidden = false;
+//   inventory.textContent = 'CLICK ON THIS LIST TO HIDE IT';
+//   for (var i = 0; i < productCatalog.length; i++){
+//     var liEl = document.createElement('li');
+//     liEl.textContent = productCatalog[i].title + ', ' + productCatalog[i].votes + ' votes';
+//     inventory.appendChild(liEl);
+//   };
+// };
+
+
+// function tallyVote(thisItem) {
+//   for (var i = 0; i < productCatalog.length; i++) {
+//     if (thisItem === productCatalog[i].identifier) {
+//       productCatalog[i].votes++;
+//       addingDataToChart();
+//     }
+//   }
+// };
+
+// var canvas = document.getElementById('myChart').getContext('2d');
+// var myBarChart = new Chart(canvas,{
+//     type: 'bar',
+//     data: data,
+//
+// });
+//   chartDrawn = true;
+//
+//
+// var data = {
+//   labels: ['bag','banana','bathroom','boots','bubblegum','chair','cthulhu','dog-duck', 'dragon','pen','pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'],
+//   datasets: [
+//     {
+//
+//       label: 'My First dataset',
+//       backgroundColor: '#D692E1',
+//       borderColor: '#DAFA6F',
+//       borderWidth: 1,
+//       data: [votes],
+//       //  yAxisID: '# of Clicks',
+//       //  xAxisID: 'Product',
+//
+//
+//     }
+//   ]
+// };
+//
+// document.getElementById('left').addEventListener('click', function(event){
+//   if (event.target.id === 'left') {
+//     tallyVote(event.target.id);
+//   };
+//
+//   if (chartDrawn) {
+//     myBarChart.update();
+//   }
+// });
