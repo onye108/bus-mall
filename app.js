@@ -12,7 +12,7 @@ var middle = document.getElementById('middle');
 var right  = document.getElementById('right');
 var holder = document.getElementById('holder');
 
-
+hideChart(myChart);
 //****************Construtor*******************
 
 function Product (name){
@@ -81,8 +81,9 @@ function handleClick(){
   if(clickCounter === 15){
     holder.removeEventListener('click',showThreePics);
     alert('You are out of clicks');
-    renderResults();
-
+    // renderResults();
+    makeNewChart();
+    drawChart();
   }
   showThreePics();
 }
@@ -107,22 +108,9 @@ function clickCount() {
 
 }
 
-// clickCount(event);
 
 
-//*****************print results to document*********************
-function renderResults(){
 
-
-  var resultsList = document.getElementById('results');
-  for (var i = 0; i < productCatalog.length; i++) {
-
-    var surveyResults = document.createElement('li');
-    surveyResults.textContent = 'Name: ' + productCatalog[i].name + '  ' + 'Views: ' + productCatalog[i].views + ' ' + 'Clicked: ' + productCatalog[i].timesClicked;
-    resultsList.appendChild(surveyResults);
-
-  }
-}
 
 
 
@@ -130,80 +118,49 @@ function renderResults(){
 showThreePics();
 holder.addEventListener('click', handleClick);
 
+var canvas = document.getElementById('myChart').getContext('2d');
+var itemName = [];
+var clicked = [];
+function makeNewChart (){
+  for (var i = 0; i < productCatalog.length; i++) {
+    itemName[i] = productCatalog[i].name;
+    clicked[i] = productCatalog[i].timesClicked;
+
+  }
+  console.log(itemName + ' ' + clicked);
+
+}
 
 
+    var data = {
+      labels: itemName,
+      datasets: [
+        {
+          data: clicked,
+          label: 'Number of Clicks',
+          backgroundColor: '#D692E1',
+          borderColor: '#DAFA6F',
 
+    }
+  ]
+    };
 
-
-
-
-//***********Kill event listener******************
-//************************************************
-// console.log(clickCounter);
-// var votes = [];
-// var items = [];
-//
-// function addingDataToChart(){
-//   for (var i = 0; i < names.length; i++) {
-//     votes[i] = productCatalog[i].votes;
-//     items[i] = productCatalog[i].items;
-//   }
-// }
-// function productList() {
-//   var inventory = document.getElementById('product-list');
-//   inventory.innerHTML = '';
-//   inventory.hidden = false;
-//   inventory.textContent = 'CLICK ON THIS LIST TO HIDE IT';
-//   for (var i = 0; i < productCatalog.length; i++){
-//     var liEl = document.createElement('li');
-//     liEl.textContent = productCatalog[i].title + ', ' + productCatalog[i].votes + ' votes';
-//     inventory.appendChild(liEl);
-//   };
-// };
-
-
-// function tallyVote(thisItem) {
-//   for (var i = 0; i < productCatalog.length; i++) {
-//     if (thisItem === productCatalog[i].identifier) {
-//       productCatalog[i].votes++;
-//       addingDataToChart();
-//     }
-//   }
-// };
-
-// var canvas = document.getElementById('myChart').getContext('2d');
-// var myBarChart = new Chart(canvas,{
-//     type: 'bar',
-//     data: data,
-//
-// });
-//   chartDrawn = true;
-//
-//
-// var data = {
-//   labels: ['bag','banana','bathroom','boots','bubblegum','chair','cthulhu','dog-duck', 'dragon','pen','pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'],
-//   datasets: [
-//     {
-//
-//       label: 'My First dataset',
-//       backgroundColor: '#D692E1',
-//       borderColor: '#DAFA6F',
-//       borderWidth: 1,
-//       data: [votes],
-//       //  yAxisID: '# of Clicks',
-//       //  xAxisID: 'Product',
-//
-//
-//     }
-//   ]
-// };
-//
-// document.getElementById('left').addEventListener('click', function(event){
-//   if (event.target.id === 'left') {
-//     tallyVote(event.target.id);
-//   };
-//
-//   if (chartDrawn) {
-//     myBarChart.update();
-//   }
-// });
+function hideChart(myChart){
+  document.getElementById('myChart').hidden = true;
+}
+function drawChart(){
+  var myChart = new Chart(canvas,{
+    type: 'pie',
+    data: data,
+    options: {
+      responsive: false
+    },
+    scales:[{
+      ticks:{
+        beginAtZero: true
+      }
+    }]
+  });
+  chartDrawn = true;
+  console.log(myChart);
+}
