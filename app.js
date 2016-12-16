@@ -2,7 +2,6 @@
 
 var clickCounter = 0;
 var productCatalog = [];
-var chartDrawn = false;
 var names = ['bag','banana','bathroom','boots','bubblegum','chair','cthulhu','dog-duck', 'dragon','pen','pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 var newArray = [];
 var oldArray = [];
@@ -79,15 +78,25 @@ function handleClick(){
   clickCounter += 1;
   console.log(clickCounter, 'total click so far');
   if(clickCounter === 15){
-    holder.removeEventListener('click',showThreePics);
     alert('You are out of clicks');
-    // renderResults();
+    resultsButton();
+    holder.removeEventListener('click',handleClick);
     makeNewChart();
-    drawChart();
   }
-  showThreePics();
+  howThreePics();
 }
+holder.addEventListener('click', handleClick);
+function resultsButton() {
+  var body = document.getElementById('button');
+  var button = document.createElement('button');
+  button.innerHTML = 'Get Results';
+  body.appendChild(button);
+  button.addEventListener ('click', drawChart);
+  chartDrawn = true;
+}
+function refreshButton() {
 
+}
 // timesClicked working *******************
 function clickCount() {
 
@@ -108,15 +117,7 @@ function clickCount() {
 
 }
 
-
-
-
-
-
-
-
 showThreePics();
-holder.addEventListener('click', handleClick);
 
 var canvas = document.getElementById('myChart').getContext('2d');
 var itemName = [];
@@ -130,27 +131,25 @@ function makeNewChart (){
   console.log(itemName + ' ' + clicked);
 
 }
-
-
-    var data = {
-      labels: itemName,
-      datasets: [
-        {
-          data: clicked,
-          label: 'Number of Clicks',
-          backgroundColor: '#D692E1',
-          borderColor: '#DAFA6F',
+var data = {
+  labels: itemName,
+  datasets: [
+    {
+      data: clicked,
+      label: 'Number of Clicks',
+      backgroundColor: '#D692E1',
+      borderColor: '#DAFA6F',
 
     }
   ]
-    };
+};
 
 function hideChart(myChart){
   document.getElementById('myChart').hidden = true;
 }
 function drawChart(){
   var myChart = new Chart(canvas,{
-    type: 'pie',
+    type: 'bar',
     data: data,
     options: {
       responsive: false
