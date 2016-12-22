@@ -83,7 +83,7 @@ function handleClick(){
     holder.removeEventListener('click',handleClick);
     makeNewChart();
   }
-  howThreePics();
+  showThreePics();
 }
 holder.addEventListener('click', handleClick);
 function resultsButton() {
@@ -92,11 +92,9 @@ function resultsButton() {
   button.innerHTML = 'Get Results';
   body.appendChild(button);
   button.addEventListener ('click', drawChart);
-  chartDrawn = true;
+  chartDrawn();
 }
-function refreshButton() {
 
-}
 // timesClicked working *******************
 function clickCount() {
 
@@ -147,6 +145,10 @@ var data = {
 function hideChart(myChart){
   document.getElementById('myChart').hidden = true;
 }
+function chartDrawn(myChart){
+  document.getElementById('myChart').hidden = false;
+}
+
 function drawChart(){
   var myChart = new Chart(canvas,{
     type: 'bar',
@@ -160,6 +162,6 @@ function drawChart(){
       }
     }]
   });
-  chartDrawn = true;
+
   console.log(myChart);
 }
