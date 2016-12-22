@@ -80,8 +80,8 @@ function handleClick(){
   if(clickCounter === 25){
     alert('You are out of clicks');
     resultsButton();
-    holder.removeEventListener('click',handleClick);
     makeNewChart();
+    holder.removeEventListener('click',handleClick);
   }
   showThreePics();
 }
