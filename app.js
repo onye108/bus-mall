@@ -77,7 +77,7 @@ function handleClick(){
   clickCount();
   clickCounter += 1;
   console.log(clickCounter, 'total click so far');
-  if(clickCounter === 15){
+  if(clickCounter === 25){
     alert('You are out of clicks');
     resultsButton();
     holder.removeEventListener('click',handleClick);
