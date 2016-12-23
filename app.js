@@ -11,6 +11,7 @@ var middle = document.getElementById('middle');
 var right  = document.getElementById('right');
 var holder = document.getElementById('holder');
 
+var userResults =
 hideChart(myChart);
 //****************Construtor*******************
 
@@ -78,10 +79,16 @@ function handleClick(){
   clickCounter += 1;
   console.log(clickCounter, 'total click so far');
   if(clickCounter === 25){
+    localStorage.setItem('busmall', JSON.stringify(productCatalog));
     alert('You are out of clicks');
+    holder.removeEventListener('click',handleClick);
     resultsButton();
     makeNewChart();
-    holder.removeEventListener('click',handleClick);
+    if (!localStorage.busmall){
+      for (var i = 0; i < names.length; i++) {
+        new Product(productCatalog[i]);
+      }
+    }
   }
   showThreePics();
 }
@@ -95,6 +102,7 @@ function resultsButton() {
   chartDrawn();
 }
 
+showThreePics();
 // timesClicked working *******************
 function clickCount() {
 
