@@ -5,12 +5,13 @@ var productCatalog = [];
 var names = ['bag','banana','bathroom','boots','bubblegum','chair','cthulhu','dog-duck', 'dragon','pen','pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 var newArray = [];
 var oldArray = [];
-
+var allProducts = [];
 var left = document.getElementById('left');
 var middle = document.getElementById('middle');
 var right  = document.getElementById('right');
 var holder = document.getElementById('holder');
 
+var userResults =
 hideChart(myChart);
 //****************Construtor*******************
 
@@ -78,9 +79,10 @@ function handleClick(){
   clickCounter += 1;
   console.log(clickCounter, 'total click so far');
   if(clickCounter === 25){
-    alert('You are out of clicks');
+    localStorage.setItem('allProducts', JSON.stringify(allProducts));
     resultsButton();
     makeNewChart();
+    alert('You are out of clicks');
     holder.removeEventListener('click',handleClick);
   }
   showThreePics();
@@ -94,7 +96,19 @@ function resultsButton() {
   button.addEventListener ('click', drawChart);
   chartDrawn();
 }
+if(localStorage.allProducts){
+  var retrieveStorage = localStorage.getItem('allProducts');
+  allProducts = JSON.parse(retrieveStorage);
+  console.table(JSON.parse(retrieveStorage));
+}
+else {
+  for(var i = 0; i < names.length; i++){
+    new Product(names[i]);
+  }
+  localStorage.setItem('allProducts', JSON.stringify(allProducts));
 
+}
+    showThreePics();
 // timesClicked working *******************
 function clickCount() {
 
